@@ -1,8 +1,8 @@
 {
     "name": "Tracking",
     "marketplaceName": {
-        "de": "Google Tag Manager Tracking ENTERPRISE",
-        "en": "Google Tag Manager Tracking ENTERPRISE"
+        "de": "Google Tag Manager Tracking ENTERPRISE (Konsolenkost)",
+        "en": "Google Tag Manager Tracking ENTERPRISE (Konsolenkost)"
     },
     "namespace": "Tracking",
     "isClosedSource": false,
