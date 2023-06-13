@@ -1,10 +1,10 @@
 {
-    "name": "Tracking",
+    "name": "GoogleTagManager",
     "marketplaceName": {
-        "de": "Google Tag Manager Tracking ENTERPRISE (Konsolenkost)",
-        "en": "Google Tag Manager Tracking ENTERPRISE (Konsolenkost)"
+        "de": "Google Tag Manager (Konsolenkost)",
+        "en": "Google Tag Manager (Konsolenkost)"
     },
-    "namespace": "Tracking",
+    "namespace": "GoogleTagManager",
     "isClosedSource": false,
     "version": "5.0.6",
     "license": "AGPL-3.0",
@@ -58,28 +58,28 @@
         "IO": ">=5.0.0",
         "Ceres": ">=5.0.0"
     },
-    "serviceProvider": "Tracking\\Providers\\TrackingServiceProvider",
+    "serviceProvider": "GoogleTagManager\\Providers\\TrackingServiceProvider",
     "dataProviders": [
         {
-            "key": "Tracking\\Providers\\GtmProviderHead",
+            "key": "GoogleTagManager\\Providers\\GtmProviderHead",
             "name": "Google Tag Manager Code (Page Head)",
             "description": "Add Google Tag Manager Code in Page Head",
             "defaultLayoutContainer": "Ceres::Template.Style"
         },
         {
-            "key": "Tracking\\Providers\\GoogleSiteVerification",
+            "key": "GoogleTagManager\\Providers\\GoogleSiteVerification",
             "name": "Google Site Verification Meta-Tag (Page Head)",
             "description": "Add the meta-tag for Google Site Verification in Page Head",
             "defaultLayoutContainer": "Ceres::Template.Style"
         },
         {
-            "key": "Tracking\\Providers\\TrackingCodeProvider",
+            "key": "GoogleTagManager\\Providers\\TrackingCodeProvider",
             "name": "Tracking code",
             "description": "Include tracking code",
             "defaultLayoutContainer": "Ceres::Script.AfterScriptsLoaded"
         },
         {
-            "key": "Tracking\\Providers\\GtmProviderBody",
+            "key": "GoogleTagManager\\Providers\\GtmProviderBody",
             "name": "Google Tag Manager Code (Page Body)",
             "description": "Add Google Tag Manager Code in Page Body",
             "defaultLayoutContainer": "Ceres::PageDesign.AfterOpeningBodyTag"
