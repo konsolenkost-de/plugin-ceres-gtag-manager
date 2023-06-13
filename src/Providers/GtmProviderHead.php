@@ -1,6 +1,6 @@
 <?php
 
-namespace Tracking\Providers;
+namespace GoogleTagManager\Providers;
 
 use Plenty\Plugin\Templates\Twig;
 
@@ -8,6 +8,6 @@ class GtmProviderHead
 {
     public function call(Twig $twig)
     {
-        return $twig->render('Tracking::GtmHead');
+        return $twig->render('GoogleTagManager::GtmHead');
     }
 }

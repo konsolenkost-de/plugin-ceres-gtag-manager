@@ -1,5 +1,6 @@
-{% set gtmId = config("Tracking.gtmId") %}
-{% set useConsentBanner = config("Tracking.useConsentBanner") %}
+{% set gtmId = config("GoogleTagManager.gtmId") %}
+{% set useConsentBanner = config("GoogleTagManager.useConsentBanner") %}
+
 
 {% if gtmId is not empty %}
 <!-- Google Tag Manager Head -->

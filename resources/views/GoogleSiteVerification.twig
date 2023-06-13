@@ -1,6 +1,7 @@
-{% set googleSiteVerification1 = config("Tracking.googleSiteVerification1") %}
-{% set googleSiteVerification2 = config("Tracking.googleSiteVerification2") %}
-{% set googleSiteVerification3 = config("Tracking.googleSiteVerification3") %}
+{% set googleSiteVerification1 = config("GoogleTagManager.googleSiteVerification1") %}
+{% set googleSiteVerification2 = config("GoogleTagManager.googleSiteVerification2") %}
+{% set googleSiteVerification3 = config("GoogleTagManager.googleSiteVerification3") %}
+
 
 {% if googleSiteVerification1 is not empty %}
 	{{ googleSiteVerification1 | raw }}

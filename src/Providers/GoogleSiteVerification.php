@@ -1,6 +1,6 @@
 <?php
 
-namespace Tracking\Providers;
+namespace GoogleTagManager\Providers;
 
 use Plenty\Plugin\Templates\Twig;
 
@@ -8,6 +8,6 @@ class GoogleSiteVerification
 {
     public function call(Twig $twig)
     {
-        return $twig->render('Tracking::GoogleSiteVerification');
+        return $twig->render('GoogleTagManager::GoogleSiteVerification');
     }
 }

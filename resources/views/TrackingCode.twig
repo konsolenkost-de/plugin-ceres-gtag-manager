@@ -1,5 +1,7 @@
-{% set debugTracking = config("Tracking.logToConsole") %}
-{% set alwaysEnableTracking = config("Tracking.enableTrackingFromAdmin") %}
+{% set debugTracking = config("GoogleTagManager.logToConsole") %}
+{% set alwaysEnableTracking = config("GoogleTagManager.enableTrackingFromAdmin") %}
+
+
 {% if debugTracking == 'false' %}
 	{% set debugTracking ='' %}
 {% endif %}
@@ -23,7 +25,9 @@
 {% if debugTracking %} <script>gtmLog({{ _context|json_encode|raw }}, 'complete context object');</script> {% endif %}
 {# debug - all context variables #}
 
-{% set gtmId = config("Tracking.gtmId") %}
+{% set gtmId = config("GoogleTagManager.gtmId") %}
+
+
 {% if gtmId is not empty %}
 
 	{#######################################################################################################
@@ -162,7 +166,9 @@ const NEWSLETTER_OPT_IN         = "newsletter-opt-in";
 	{% set vatValue = basket.totalVats[0].vatValue %}
 	{% set vatRate = basket.totalVats[0].vatAmount %}
 
-	{% if config("Tracking.showNetPrices") == "false" %}
+{% if config("GoogleTagManager.showNetPrices") == "false" %}
+
+
 		{% if basket.totalVats[0].vatValue == 0 %}
 			{% set basketTotal = basket.basketAmountNet %}
 			{% set basketShipping = basket.shippingAmountNet %}
@@ -480,12 +486,17 @@ const NEWSLETTER_OPT_IN         = "newsletter-opt-in";
 				{% endif %}
 
 				{% if debugTracking %}
-				    gtmLog('gross / net tracking set to {{ config("Tracking.showNetPrices") }}');
+gtmLog('gross / net tracking set to
+{{ config("GoogleTagManager.showNetPrices") }}');
+
+
 				{% endif %}
 
 				var amount = "";
 				var amountNet = itemPriceNet * ceresStore.state.basket.items[i].quantity;
-				{% if config("Tracking.showNetPrices") == "false" %}
+{% if config("GoogleTagManager.showNetPrices") == "false" %}
+
+
 					var itemPrice = ceresStore.state.basket.items[i].variation.data.prices.default.data.price;
 				    if (itemPriceGross) {
 						itemPrice = itemPriceGross;
@@ -602,20 +613,30 @@ const NEWSLETTER_OPT_IN         = "newsletter-opt-in";
 							#}
 						}
 						else {
-							listCaption = "{% if itemListSingleItemListLabelWithoutCaption != "" %}{{ trans("Tracking::Template.itemListSingleItemListLabelWithoutCaption") }} - {% endif %}Varianten-ID "+"{{ item.documents[0].data.variation.id|trim }}";
+listCaption = "
+{% if itemListSingleItemListLabelWithoutCaption != "" %}
+	{{ trans("GoogleTagManager::Template.itemListSingleItemListLabelWithoutCaption") }}
+	-
+{% endif %}Varianten-ID "+"{{ item.documents[0].data.variation.id|trim }}";
+
 							{#
 								//console.log(listCaption);
 							#}
 						}
 					{% else %}
 						if (parentList.length > 0 && parentList.find(".widget-caption *:not(:has('*'))").not("a").text() != undefined && parentList.find(".widget-caption *:not(:has('*'))").not("a").text() != "") {
-							listCaption = "{% if trans("Tracking::Template.itemListStartpageListLabelWithCaption") != "" %}{{ trans("Tracking::Template.itemListStartpageListLabelWithCaption") }} {% endif %}" + parentList.find(".widget-caption *:not(:has('*'))").not("a").text();
+listCaption = "
+{% if trans("GoogleTagManager::Template.itemListStartpageListLabelWithCaption") != "" %}
+	{{ trans("GoogleTagManager::Template.itemListStartpageListLabelWithCaption") }}
+{% endif %}" + parentList.find(".widget-caption *:not(:has('*'))").not("a").text();
+
 							{#
 								//console.log(listCaption);
 							#}
 						}
 						else {
-							listCaption = "{{ trans("Tracking::Template.itemListStartpageListLabelWithoutCaption") }}";
+listCaption = "{{ trans("GoogleTagManager::Template.itemListStartpageListLabelWithoutCaption") }}";
+
 							{#
 								//console.log(listCaption);
 							#}
@@ -1055,7 +1076,9 @@ const NEWSLETTER_OPT_IN         = "newsletter-opt-in";
 					{% set priceNet = item.variation.data.prices.default.data.priceNet %}
 					{% set amountNet = item.variation.data.prices.default.data.priceNet * item.quantity %}
 
-					{% if config("Tracking.showNetPrices") == "false" %}
+{% if config("GoogleTagManager.showNetPrices") == "false" %}
+
+
 						{% if basket.totalVats[0].vatValue == 0 %}
 							{% set price = item.variation.data.prices.default.data.priceNet %}
 							{% set amount = item.variation.data.prices.default.data.priceNet * item.quantity %}
@@ -1270,7 +1293,9 @@ const NEWSLETTER_OPT_IN         = "newsletter-opt-in";
 		{% endif %}
 		{% set categoriesTree = categories %}
 
-		{% if config("Tracking.showNetPrices") == "false" %}
+{% if config("GoogleTagManager.showNetPrices") == "false" %}
+
+
 			{% set itemPrice = item.documents[0].data.prices.default.data.price %}
 		{% else %}
 			{% set itemPrice = item.documents[0].data.prices.default.data.priceNet %}
@@ -1356,7 +1381,9 @@ const NEWSLETTER_OPT_IN         = "newsletter-opt-in";
 				var variationNumber = "{{ item.documents[0].data.variation.number|default(0) }}";
 				var attributes = "{% for attribute in item.documents[0].data.attributes %}{{ attribute.attribute.names.name|raw  }}: {{ attribute.value.names.name|raw }}{% if not loop.last %}, {% endif %}{% endfor %}";
 				var priceNet = {{ item.documents[0].data.prices.default.data.priceNet|default(0) }};
-				{% if config("Tracking.showNetPrices") == "false" %}
+{% if config("GoogleTagManager.showNetPrices") == "false" %}
+
+
 					var price = {{ item.documents[0].data.prices.default.data.price|default(0) }};
 				{% else %}
 					var price = {{ item.documents[0].data.prices.default.data.priceNet|default(0) }};
@@ -1422,7 +1449,9 @@ const NEWSLETTER_OPT_IN         = "newsletter-opt-in";
 					variationId = event.detail.documents[0].data.variation.id.toString();
 					variationNumber = event.detail.documents[0].data.variation.number.toString();
 					priceNet = event.detail.documents[0].data.prices.default.data.priceNet;
-					{% if config("Tracking.showNetPrices") == "false" %}
+{% if config("GoogleTagManager.showNetPrices") == "false" %}
+
+
 						var price = event.detail.documents[0].data.prices.default.data.price;
 					{% else %}
 						var price = event.detail.documents[0].data.prices.default.data.priceNet;
@@ -1539,7 +1568,9 @@ const NEWSLETTER_OPT_IN         = "newsletter-opt-in";
 				{% for item in itemList %}
 
 					{% set itemPriceNet = item.data.prices.default.data.priceNet|default(0) %}
-					{% if config("Tracking.showNetPrices") == "false" %}
+{% if config("GoogleTagManager.showNetPrices") == "false" %}
+
+
 						{% set itemPrice = item.data.prices.default.data.price|default(0) %}
 					{% else %}
 						{% set itemPrice = item.data.prices.default.data.priceNet|default(0) %}
@@ -1617,23 +1648,67 @@ const NEWSLETTER_OPT_IN         = "newsletter-opt-in";
 							"position": {{ position }},
 							{% if services.template.isCurrentTemplate("tpl.search") == true %}
 								{% if '"' in searchString == true and "'" in searchString == false %}
-									"list": '{{ trans("Tracking::Template.itemListSearchResultsLabel") }} {{ searchString|trim }}',
+"list": '{{ trans("GoogleTagManager::Template.itemListSearchResultsLabel") }}
+{{ searchString|trim }}',
+
 								{% elseif '"' in searchString == false and "'" in searchString == true %}
-									"list": "{{ trans("Tracking::Template.itemListSearchResultsLabel") }} {{ searchString|trim }}",
+"list": "{{ trans("GoogleTagManager::Template.itemListSearchResultsLabel") }}
+{{ searchString|trim }}",
+
 								{% elseif '"' in searchString == true and "'" in searchString == true %}
-									"list": "{{ trans("Tracking::Template.itemListSearchResultsLabel") }} {{ searchString|trim }}",
+"list": "{{ trans("GoogleTagManager::Template.itemListSearchResultsLabel") }}
+{{ searchString|trim }}",
+
 								{% else %}
-									"list": "{{ trans("Tracking::Template.itemListSearchResultsLabel") }} {{ searchString|trim }}",
+"list": "{{ trans("GoogleTagManager::Template.itemListSearchResultsLabel") }}
+{{ searchString|trim }}",
+
 								{% endif %}
 							{% else %}
 								{% if '"' in categories == true and "'" in categories == false %}
-									"list": '{% if trans("Tracking::Template.itemListCategoryLabel") != "" %}{{ trans("Tracking::Template.itemListCategoryLabel") }} {% endif %}{{ categories|trim|raw }}{% if trans("Tracking::Template.itemListPaginationLabel") != "" %}, {{ trans("Tracking::Template.itemListPaginationLabel") }} {{ currentPage }}{% endif %}',
+"list": '
+{% if trans("GoogleTagManager::Template.itemListCategoryLabel") != "" %}
+	{{ trans("GoogleTagManager::Template.itemListCategoryLabel") }}
+{% endif %}
+{{ categories|trim|raw }}
+{% if trans("GoogleTagManager::Template.itemListPaginationLabel") != "" %},
+	{{ trans("GoogleTagManager::Template.itemListPaginationLabel") }}
+	{{ currentPage }}
+{% endif %}',
+
 								{% elseif '"' in categories == false and "'" in categories == true %}
-									"list": "{% if trans("Tracking::Template.itemListCategoryLabel") != "" %}{{ trans("Tracking::Template.itemListCategoryLabel") }} {% endif %}{{ categories|trim|raw }}{% if trans("Tracking::Template.itemListPaginationLabel") != "" %}, {{ trans("Tracking::Template.itemListPaginationLabel") }} {{ currentPage }}{% endif %}",
+"list": "
+{% if trans("GoogleTagManager::Template.itemListCategoryLabel") != "" %}
+	{{ trans("GoogleTagManager::Template.itemListCategoryLabel") }}
+{% endif %}
+{{ categories|trim|raw }}
+{% if trans("GoogleTagManager::Template.itemListPaginationLabel") != "" %},
+	{{ trans("GoogleTagManager::Template.itemListPaginationLabel") }}
+	{{ currentPage }}
+{% endif %}",
+
 								{% elseif '"' in categories == true and "'" in categories == true %}
-									"list": "{% if trans("Tracking::Template.itemListCategoryLabel") != "" %}{{ trans("Tracking::Template.itemListCategoryLabel") }} {% endif %}{{ categories|trim }}{% if trans("Tracking::Template.itemListPaginationLabel") != "" %}, {{ trans("Tracking::Template.itemListPaginationLabel") }} {{ currentPage }}{% endif %}",
+"list": "
+{% if trans("GoogleTagManager::Template.itemListCategoryLabel") != "" %}
+	{{ trans("GoogleTagManager::Template.itemListCategoryLabel") }}
+{% endif %}
+{{ categories|trim }}
+{% if trans("GoogleTagManager::Template.itemListPaginationLabel") != "" %},
+	{{ trans("GoogleTagManager::Template.itemListPaginationLabel") }}
+	{{ currentPage }}
+{% endif %}",
+
 								{% else %}
-									"list": "{% if trans("Tracking::Template.itemListCategoryLabel") != "" %}{{ trans("Tracking::Template.itemListCategoryLabel") }} {% endif %}{{ categories|trim|raw }}{% if trans("Tracking::Template.itemListPaginationLabel") != "" %}, {{ trans("Tracking::Template.itemListPaginationLabel") }} {{ currentPage }}{% endif %}",
+"list": "
+{% if trans("GoogleTagManager::Template.itemListCategoryLabel") != "" %}
+	{{ trans("GoogleTagManager::Template.itemListCategoryLabel") }}
+{% endif %}
+{{ categories|trim|raw }}
+{% if trans("GoogleTagManager::Template.itemListPaginationLabel") != "" %},
+	{{ trans("GoogleTagManager::Template.itemListPaginationLabel") }}
+	{{ currentPage }}
+{% endif %}",
+
 								{% endif %}
 							{% endif %}
 							"productLink": "{{ webstoreConfig.domainSsl }}/{{ item.data|itemURL }}",
@@ -1866,7 +1941,9 @@ const NEWSLETTER_OPT_IN         = "newsletter-opt-in";
 				{% set couponDiscount = data.totals.couponValue %}
 				{% set vatValue = data.order.amounts[0].vatTotal %}
 
-				{% if config("Tracking.showNetPrices") == "false" %}
+{% if config("GoogleTagManager.showNetPrices") == "false" %}
+
+
 					{% if data.order.amounts[0].vatTotal == 0 %}
 						{% set orderTotal = data.totals.totalNet %}
 						{% set orderItemSum = data.totals.itemSumNet %}
@@ -2076,7 +2153,9 @@ const NEWSLETTER_OPT_IN         = "newsletter-opt-in";
 										{% set priceNet = item.amounts[0].priceNet %}
 										{% set amountNet = item.amounts[0].priceNet * item.quantity %}
 
-										{% if config("Tracking.showNetPrices") == "false" %}
+{% if config("GoogleTagManager.showNetPrices") == "false" %}
+
+
 											{% if data.order.amounts[0].vatTotal == 0 %}
 												{% set price = item.amounts[0].priceNet %}
 												{% set amount = item.amounts[0].priceNet * item.quantity %}

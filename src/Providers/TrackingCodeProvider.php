@@ -1,6 +1,6 @@
 <?php
 
-namespace Tracking\Providers;
+namespace GoogleTagManager\Providers;
 
 use Plenty\Modules\Frontend\Session\Storage\Contracts\FrontendSessionStorageFactoryContract;
 use Plenty\Plugin\Templates\Twig;
@@ -20,7 +20,7 @@ class TrackingCodeProvider
 //        $templateForTracking = self::getTemplateForTracking();
 
         return $twig->render(
-            'Tracking::TrackingCode',
+            'GoogleTagManager::TrackingCode',
             [
                 'trackOrder' => $enableTracking,
 //                'templateForTracking' => $templateForTracking
